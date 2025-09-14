@@ -160,8 +160,8 @@ function initializeTracker(db) {
         };
 
         try {
-            await db.ref(`location-data/${userId}/${now}`).set(locationData);
-            await db.ref(`location-data/${userId}/latest`).set(locationData);
+            db.ref('location-data/' + userId + '/' + now).set(locationData);
+            db.ref('location-data/' + userId + '/latest').set(locationData);
             
             updateIndicator(connectionIndicator, 'safe');
             addDebugLog(`📡 Lokasi #${updateCount} terkirim`);
