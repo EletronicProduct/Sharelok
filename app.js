@@ -6,15 +6,15 @@ function initializeApp() {
     }
 
     const firebaseConfig = {
-        apiKey: "AIzaSyCalf-RcByWIxdE3kyhcWwNwd8kSGX_fLE",
-        authDomain: "absensi2-741f0.firebaseapp.com",
-        databaseURL: "https://absensi2-741f0-default-rtdb.asia-southeast1.firebasedatabase.app",
-        projectId: "absensi2-741f0",
-        storageBucket: "absensi2-741f0.firebasestorage.app",
-        messagingSenderId: "747934727309",
-        appId: "1:747934727309:web:0c1fbacd980c4bdf2bb6c4",
-        measurementId: "G-DGLR9P3Z33"
-    };
+    apiKey: "AIzaSyCalf-RcByWIxdE3kyhcWwNwd8kSGX_fLE",
+    authDomain: "absensi2-741f0.firebaseapp.com",
+    databaseURL: "https://absensi2-741f0-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "absensi2-741f0",
+    storageBucket: "absensi2-741f0.firebasestorage.app",
+    messagingSenderId: "747934727309",
+    appId: "1:747934727309:web:0c1fbacd980c4bdf2bb6c4",
+    measurementId: "G-DGLR9P3Z33"
+  };
 
     try {
         firebase.initializeApp(firebaseConfig);
