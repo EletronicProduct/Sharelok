@@ -19,15 +19,29 @@ function initializeApp() {
     try {
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        initializeTracker(db);
+        
+        // --- KODE BARU UNTUK AUTENTIKASI ANONIM ---
+        firebase.auth().signInAnonymously()
+            .then(() => {
+                console.log("Berhasil login secara anonim:", firebase.auth().currentUser.uid);
+                addDebugLog('Berhasil login anonim');
+                initializeTracker(db); // Panggil tracker setelah login berhasil
+            })
+            .catch((error) => {
+                console.error("Gagal login anonim:", error.message);
+                addDebugLog('Gagal login anonim: ' + error.message);
+            });
+        // --- SAMPAI SINI ---
+
     } catch (error) {
         console.error('Firebase Error:', error);
-        addDebugLog(' Firebase initialization failed: ' + error.message);
+        addDebugLog('Firebase initialization failed: ' + error.message);
     }
 }
 
 function initializeTracker(db) {
-    const SECURE_PASSWORD = 'Botakgila123';
+    // --- HAPUS: SECURE_PASSWORD sudah tidak perlu ---
+    // const SECURE_PASSWORD = 'Botakgila123';
     
     const startButton = document.getElementById('startButton');
     const stopButton = document.getElementById('stopButton');
@@ -47,7 +61,7 @@ function initializeTracker(db) {
     let trackingInterval = null;
     let suspiciousCount = 0;
     let startTime = null;
-
+    
     function addDebugLog(message) {
         const time = new Date().toLocaleTimeString();
         const logEntry = document.createElement('div');
@@ -56,7 +70,7 @@ function initializeTracker(db) {
         debugPanel.scrollTop = debugPanel.scrollHeight;
         console.log('Debug:', message);
     }
-
+    
     function updateIndicator(indicator, status) {
         indicator.className = `indicator-dot ${status}`;
     }
@@ -123,7 +137,7 @@ function initializeTracker(db) {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         return R * c;
     }
-
+    
     async function handlePosition(position) {
         updateCount++;
         const now = Date.now();
@@ -139,6 +153,7 @@ function initializeTracker(db) {
         }
 
         const locationData = {
+            // --- UBAH: Gunakan UID dari Firebase Auth sebagai userId ---
             userId: userId,
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -156,10 +171,12 @@ function initializeTracker(db) {
             issues: fakeCheck.issues,
             status: 'active',
             batteryOptimized: false,
-            password: SECURE_PASSWORD
+            // --- HAPUS: password sudah tidak perlu ---
+            // password: SECURE_PASSWORD
         };
 
         try {
+            // --- UBAH: Gunakan UID dari Firebase Auth untuk path database ---
             await db.ref('location-data/' + userId + '/' + now).set(locationData);
             await db.ref('location-data/' + userId + '/latest').set(locationData);
             
@@ -212,7 +229,9 @@ function initializeTracker(db) {
             return;
         }
 
-        userId = nama.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        // --- UBAH: Gunakan UID dari Firebase Auth sebagai userId ---
+        userId = firebase.auth().currentUser.uid;
+        
         startTime = Date.now();
         updateCount = 0;
         suspiciousCount = 0;
