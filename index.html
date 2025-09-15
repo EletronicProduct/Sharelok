@@ -1,64 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Karyawan Tracker</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
+    <title>Karyawan Tracker - Secure System</title>
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
     <div class="container">
-        <h1>🛡️ Secure Tracker</h1>
-        <p class="subtitle">Anti-Fake Location System</p>
-        
-        <div class="form-group">
-            <label for="nama-karyawan">👤 Nama Karyawan</label>
-            <input type="text" id="nama-karyawan" placeholder="Masukkan nama lengkap Anda">
+        <div class="header">
+            <img src="https://firebasestorage.googleapis.com/v0/b/absensi2-741f0.appspot.com/o/shield.png?alt=media&token=487d7b00-334d-45f8-b118-a6d10c1c9c43" alt="Secure Tracker" style="width: 50px; margin-bottom: 10px;">
+            <h2>Secure Tracker</h2>
+            <p style="color: #667eea; font-weight: bold;">Anti-Fake Location System</p>
         </div>
-        
-        <div class="controls">
-            <button id="startButton">🚀 Mulai Tracking</button>
-            <button id="stopButton" disabled> Stop Tracking</button>
+
+        <div class="input-group">
+            <label for="nama-karyawan">Nama Karyawan</label>
+            <input type="text" id="nama-karyawan" placeholder="Masukkan nama lengkap Anda" required>
         </div>
-        
-        <div class="status-card">
-            <div id="status-message">Siap untuk memulai tracking</div>
-            
-            <div class="security-indicators">
-                <div class="indicator">
-                    <div class="indicator-dot safe" id="gps-indicator"></div>
-                    GPS Status
+
+        <div class="button-group">
+            <button id="startButton">🚀 MULAI TRACKING</button>
+            <button id="stopButton" disabled>STOP TRACKING</button>
+        </div>
+
+        <p id="status-message">Siap untuk memulai tracking</p>
+
+        <div class="info-panel">
+            <p>Updates: <span id="update-count">0</span> | Akurasi GPS: <span id="accuracy">-</span></p>
+            <div class="indicator-group">
+                <div class="indicator-item">
+                    <span id="gps-indicator" class="indicator-dot"></span> GPS
                 </div>
-                <div class="indicator">
-                    <div class="indicator-dot safe" id="fake-indicator"></div>
-                    Anti-Fake
+                <div class="indicator-item">
+                    <span id="fake-indicator" class="indicator-dot"></span> Fake Loc
                 </div>
-                <div class="indicator">
-                    <div class="indicator-dot safe" id="connection-indicator"></div>
-                    Connection
+                <div class="indicator-item">
+                    <span id="connection-indicator" class="indicator-dot"></span> Koneksi
                 </div>
             </div>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-number" id="update-count">0</div>
-                    <div class="stat-label">Updates Sent</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number" id="accuracy">0m</div>
-                    <div class="stat-label">GPS Accuracy</div>
-                </div>
+            <div id="debug-panel">
+                <div id="debug-log-start"></div>
             </div>
-        </div>
-        
-        <div class="debug-panel" id="debug-panel">
-            <div>🔧 System Ready - Waiting for action...</div>
         </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
     <script src="app.js">
     </script>
 </body>
